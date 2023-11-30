@@ -1,0 +1,18 @@
+<section class="order-details">
+<section class="line-items">
+<% @order.line_items.each do |line_item| %>
+  <article class="line-item">
+  <% @product = Product.find(line_item.product_id) %>
+  <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src=<%= @product.image.thumb.url %> alt="Product image">
+  <div class="card-body">
+    <h5 class="card-title"><%= @product.name %> x <%= line_item.quantity %></h5>
+    <p class="card-text"><%= humanized_money_with_symbol @product.price %></p>
+  </div>
+</div>
+  </article>
+<% end %>  
+</section>
+<span> Email: <%= @order.email %> </span>
+<p> Total:   <%= humanized_money_with_symbol "Total: #{number_with_precision(@order.total_cents / 100.0, precision: 2)}" %></p>
+</section>
